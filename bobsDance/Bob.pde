@@ -4,7 +4,7 @@ class Bob {
   float hue, saturation, brightness;
   int entropy = 2;
   Boolean isSelfDeleting = true;
-  
+
   Bob (int x, int y, int verticesNumber) {
     hue = random(100);
     saturation = (60 ) % 100;
@@ -19,7 +19,7 @@ class Bob {
     s = createShape();
     s.beginShape();
     s.stroke(hue, saturation, brightness);
-    // s.noStroke(); 
+    // s.noStroke();
     // s.fill(hue, saturation, brightness);
     s.noFill();
     for(int i = verticesSize  - 1; i >= 0; i--) {
@@ -35,10 +35,6 @@ class Bob {
     // s.endShape(CLOSE);
   }
 
-  int getVerticesSize(){
-    return vertices.size();
-  }
-
   void switchVerticesToNextPosition(int x, int y) {
     int verticesSize = vertices.size();
     int increment = 0;
@@ -48,8 +44,8 @@ class Bob {
       while(increment < verticesSize - 1) {
         vertice = vertices.get(increment);
         nextVertice = vertices.get(increment + 1);
-        vertice.x = nextVertice.x + random(-entropy, entropy);        
-        vertice.y = nextVertice.y + random(-entropy, entropy);    
+        vertice.x = nextVertice.x + random(-entropy, entropy);
+        vertice.y = nextVertice.y + random(-entropy, entropy);
         increment++;
       }
       nextVertice.x = x;
@@ -60,6 +56,14 @@ class Bob {
       vertice.x = x;
       vertice.y = y;
     }
+  }
+
+  int getVerticesSize(){
+    return vertices.size();
+  }
+
+  PVector getVertice(){
+    return vertices.get(0);
   }
 
   PVector getRandomeVertice() {
@@ -79,7 +83,7 @@ class Bob {
 
   void shakeVertices() {
     for(PVector vertice : vertices) {
-      vertice.y += random(-entropy, entropy);        
+      vertice.y += random(-entropy, entropy);
       vertice.x += random(-entropy, entropy);
     }
   }
