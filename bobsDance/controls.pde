@@ -1,11 +1,12 @@
 void mousePressed() {
   bobs.add(0, new Bob(mouseX, mouseY, bobsVerticesCount));
   int bobsSize = bobs.size() - 1;
-  for (int i = bobsSize; i >= 0; i--) {
-    Bob bob = bobs.get(i);
-    bob.switchVerticesToNextPosition(mouseX, mouseY);
-  }
-  if (bobsSize > bobsLimit) {
+  // for (int i = bobsSize; i >= 0; i--) {
+  //   Bob bob = bobs.get(i);
+  //   bob.switchVerticesToNextPosition(mouseX, mouseY);
+  // }
+  if (bobsSize >= bobsLimit) {
+    println(bobsLimit);
     bobs.remove(bobsSize);
   }
 }

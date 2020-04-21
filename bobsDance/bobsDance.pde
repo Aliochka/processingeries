@@ -5,16 +5,17 @@ boolean isCreatingBob = false;
 boolean isRecording = false;
 boolean isDrawing = false;
 boolean isCurved = true;
-int bobsLimit = 20;
+int bobsLimit = 10;
 int backgroundColor = 0;
-int bobsVerticesCount = 100;
+int bobsVerticesCount = 5;
 
 void setup() {
   size(1024, 720, P2D);
   colorMode(HSB, 100);
   background(backgroundColor);
+  strokeWeight(5);
   // initializeBobs();
-  // frameRate(30);
+  frameRate(15);
 }
 
 void draw() {
@@ -35,7 +36,7 @@ void draw() {
     }
     bob.drawShape(isCurved);
   }
-  if (bobsSize > bobsLimit) {
+  if (bobsSize >= bobsLimit) {
     bobs.remove(bobsSize);
   }
   // press r
@@ -64,21 +65,6 @@ void moveToNextBob(int bobPosition, int bobsSize) {
   Bob nextBob = bobs.get(0);
   PVector newPosition = nextBob.getVertice();
   bob.switchVerticesToNextPosition(int(newPosition.x), int(newPosition.y));
-
-
-
-
-
-  // [
-  //   bob1
-  //   bob2
-  //   bob3
-  // ]
-  // [
-  //   bob3
-  //   bob1
-  //   bob2
-  // ]
 }
 
 
