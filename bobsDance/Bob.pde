@@ -3,7 +3,6 @@ class Bob {
   PVector[] vertices;
   float hue, saturation, brightness;
   int entropy = 2;
-  Boolean isSelfDeleting = true;
 
   Bob (int x, int y, int verticesNumber) {
     hue = random(100);
