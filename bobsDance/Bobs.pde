@@ -2,6 +2,7 @@ class Bobs {
   ArrayList<Bob> bobs = new ArrayList<Bob>();
   int bobsLimit = 10;
   int bobsVerticesCount = 5;
+  int bobsSize;
 
   Bobs (int x, int y, int bobsNumber) {
     for(int i = 0 ; i <= bobsNumber; i++) {
@@ -21,8 +22,8 @@ class Bobs {
 
   void welcomeExclude(int x, int y) {
     addBob(x, y, bobsVerticesCount);
-    int bobsSize = bobs.size() - 1;
-    if (bobsSize >= bobsLimit) {
+    bobsSize = bobs.size() - 1;
+    if (bobsSize > bobsLimit) {
       bobs.remove(bobsSize);
     }
   }
@@ -36,35 +37,57 @@ class Bobs {
   }
 
   int bobsSize() {
-    return bobs.size();
+    bobsSize = bobs.size();
+    return bobsSize;
   }
 
   void removeBob(int position) {
     bobs.remove(position);
   }
 
+  void switchToNextBob(int bobPosition) {
+    Bob bob = getBob(bobPosition);
+    Bob nextBob;
+    if (bobsSize - bobPosition >= 2) {
+      nextBob = getBob(bobPosition + 1);
+    }
+    else {
+      nextBob = getBob(0);
+    }
+    bob.switchToNextBob(nextBob);
+  }
+
+  void moveToNextBob(int bobPosition) {
+    Bob bob = getBob(bobPosition);
+    Bob nextBob;
+    if (bobsSize - bobPosition > 1) {
+      nextBob = getBob(bobPosition + 1);
+    }
+    else {
+      nextBob = getBob(0);
+    }
+    PVector newPosition = nextBob.getVertice(0);
+    bob.switchVerticesToNextPosition(int(newPosition.x), int(newPosition.y));
+  }
+
+  void moveSkinToRandomSkin(int bobPosition) {
+    Bob bob = getBob(bobPosition);
+    Bob randomBob = getBob(int(random(bobsSize)));
+    PVector newPosition = randomBob.getRandomeVertice();
+    bob.switchVerticesToNextPosition(int(newPosition.x), int(newPosition.y));
+    bob.shakeVertices();
+  }
+
   void drawBobs() {
-    int bobsSize = bobsSize() - 1;
+    bobsSize = bobsSize() - 1;
     for (int i = bobsSize; i >= 0; i--) {
       Bob bob = getBob(i);
       if (isDrawing) {
-        moveApproximativelyToNextBob(i, bobsSize);
-        // moveSkinToRandomSkin(bob, bobsSize);
+        // switchToNextBob(i);
+        // moveToNextBob(i)
+        moveSkinToRandomSkin(i);
       }
       bob.drawShape(isCurved);
     }
-  }
-
-  void moveApproximativelyToNextBob(int bobPosition, int bobsSize) {
-    Bob bob = getBob(bobPosition);
-    if (bobsSize - bobPosition >= 2)
-    {
-      Bob nextBob = getBob(bobPosition + 1);
-      PVector newPosition = nextBob.getVertice();
-      bob.switchVerticesToNextPosition(int(newPosition.x), int(newPosition.y));
-    }
-    Bob nextBob = getBob(0);
-    PVector newPosition = nextBob.getVertice();
-    bob.switchVerticesToNextPosition(int(newPosition.x), int(newPosition.y));
   }
 }

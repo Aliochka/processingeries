@@ -33,15 +33,3 @@ void draw() {
   // press r
   record();
 }
-
-
-void moveSkinToMouse(Bob bob){
-  bob.switchVerticesToNextPosition(mouseX, mouseY);
-}
-
-void moveSkinToRandomSkin(Bob bob, int bobsSize) {
-  Bob randomBob = bobs.getBob(int(random(bobsSize)));
-  PVector newPosition = randomBob.getRandomeVertice();
-  bob.switchVerticesToNextPosition(int(newPosition.x), int(newPosition.y));
-  bob.shakeVertices();
-}

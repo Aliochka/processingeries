@@ -3,11 +3,13 @@ class Bob {
   PVector[] vertices;
   float hue, saturation, brightness;
   int entropy = 2;
+  int verticesNumber;
 
   Bob (int x, int y, int verticesNumber) {
     hue = random(100);
     saturation = (60 ) % 100;
     brightness = 100;
+    this.verticesNumber = verticesNumber;
     vertices = new PVector[verticesNumber];
     for(int i = 0; i < verticesNumber; i++) {
       vertices[i] = new PVector(x + random(-100,100), y + random(-100,100));
@@ -15,14 +17,13 @@ class Bob {
   }
 
   void buildShape(boolean isCurved) {
-    int verticesSize = vertices.length;
     s = createShape();
     s.beginShape();
     s.stroke(hue, saturation, brightness);
     // s.noStroke();
     // s.fill(hue, saturation, brightness);
     s.noFill();
-    for(int i = verticesSize  - 1; i >= 0; i--) {
+    for(int i = 0; i < verticesNumber; i++) {
       PVector vertice = vertices[i];
       if (isCurved){
         s.curveVertex(vertice.x, vertice.y);
@@ -36,45 +37,52 @@ class Bob {
   }
 
   void switchVerticesToNextPosition(int x, int y) {
-    int verticesSize = vertices.length;
-    int increment = 0;
+    int position = 0;
     PVector vertice = new PVector();
     PVector nextVertice = new PVector();
-    if (verticesSize > 2) {
-      while(increment < verticesSize - 1) {
-        vertice = vertices[increment];
-        nextVertice = vertices[increment + 1];
+    if (verticesNumber > 2) {
+      while(verticesNumber - position > 1) {
+        vertice = vertices[position];
+        nextVertice = vertices[position + 1];
         vertice.x = nextVertice.x;
         vertice.y = nextVertice.y;
-        increment++;
+        position++;
       }
       nextVertice.x = x;
       nextVertice.y = y;
     }
     else {
-      vertice = vertices[increment];
+      vertice = vertices[position];
       vertice.x = x;
       vertice.y = y;
     }
   }
 
-  int getVerticesSize(){
+  int getVerticesSize() {
     return vertices.length;
   }
 
-  PVector getVertice(){
-    return vertices[0];
+  PVector getVertice(int position) {
+    return vertices[position];
   }
 
   PVector getRandomeVertice() {
-    int verticesSize = vertices.length;
-    return vertices[int(random(verticesSize - 1))];
+    return vertices[int(random(verticesNumber - 1))];
   }
 
   void shakeVertices() {
     for(PVector vertice : vertices) {
       vertice.y += random(-entropy, entropy);
       vertice.x += random(-entropy, entropy);
+    }
+  }
+
+  void switchToNextBob(Bob nextBob) {
+    for(int i = 0 ; i < verticesNumber; i++) {
+      PVector nextBobVertice = nextBob.getVertice(i);
+      PVector bobVertice = this.getVertice(i);
+      bobVertice.x = nextBobVertice.x;
+      bobVertice.y = nextBobVertice.y;
     }
   }
 
