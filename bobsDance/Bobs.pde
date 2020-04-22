@@ -3,10 +3,12 @@ class Bobs {
   int bobsLimit = 10;
   int bobsVerticesCount = 5;
   int bobsSize;
+  Field field;
 
-  Bobs (int x, int y, int bobsNumber) {
+  Bobs (int x, int y, int bobsNumber, Field field) {
+    this.field = field;
     for(int i = 0 ; i <= bobsNumber; i++) {
-      bobs.add(0, new Bob( x,  y, bobsVerticesCount));
+      bobs.add(0, new Bob( x,  y, bobsVerticesCount, field));
     }
   }
 
@@ -29,7 +31,7 @@ class Bobs {
   }
 
   void addBob(int x, int y, int bobsVerticesCount) {
-    bobs.add(0, new Bob(mouseX, mouseY, bobsVerticesCount));
+    bobs.add(0, new Bob(mouseX, mouseY, bobsVerticesCount, field));
   }
 
   Bob getBob(int position) {
@@ -84,8 +86,8 @@ class Bobs {
       Bob bob = getBob(i);
       if (isDrawing) {
         // switchToNextBob(i);
-        // moveToNextBob(i)
-        moveSkinToRandomSkin(i);
+        moveToNextBob(i);
+        // moveSkinToRandomSkin(i);
       }
       bob.drawShape(isCurved);
     }

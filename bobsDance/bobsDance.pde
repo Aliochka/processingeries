@@ -6,7 +6,7 @@ boolean isDrawing = false;
 boolean isCurved = true;
 int backgroundColor = 0;
 Bobs bobs;
-Bobs bobbies;
+Field field;
 
 void setup() {
   size(1024, 720, P2D);
@@ -15,12 +15,13 @@ void setup() {
   strokeWeight(5);
   // initializeBobs();
   frameRate(10);
-  bobs = new Bobs(0, height / 2, 5);
-  bobbies = new Bobs(3 * width / 4, height / 2, 10);
+  field = new Field();
+  bobs = new Bobs(width / 2, height / 2, 5, field);
 }
 
 void draw() {
   refreshCanvas(backgroundColor);
+  field.drawField();
 
   // press b to create bobs
   if (isCreatingBob & frameCount % 5 == 0) {
@@ -28,7 +29,7 @@ void draw() {
     bobs.welcomeExclude(mouseX, mouseY);
   }
   bobs.drawBobs();
-  bobbies.drawBobs();
+
 
   // press r
   record();
