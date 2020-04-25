@@ -3,12 +3,10 @@ class Bobs {
   int bobsLimit = 10;
   int bobsVerticesCount = 5;
   int bobsSize;
-  Field field;
 
-  Bobs (int x, int y, int bobsNumber, Field field) {
-    this.field = field;
+  Bobs (int x, int y, int bobsNumber) {
     for(int i = 0 ; i <= bobsNumber; i++) {
-      bobs.add(0, new Bob( x,  y, bobsVerticesCount, field));
+      bobs.add(0, new Bob( x,  y, bobsVerticesCount));
     }
   }
 
@@ -31,7 +29,7 @@ class Bobs {
   }
 
   void addBob(int x, int y, int bobsVerticesCount) {
-    bobs.add(0, new Bob(mouseX, mouseY, bobsVerticesCount, field));
+    bobs.add(0, new Bob(mouseX, mouseY, bobsVerticesCount));
   }
 
   Bob getBob(int position) {
@@ -69,14 +67,14 @@ class Bobs {
       nextBob = getBob(0);
     }
     PVector newPosition = nextBob.getVertice(0);
-    bob.switchVerticesToNextPosition(int(newPosition.x), int(newPosition.y));
+    bob.switchVerticesToNextPosition(newPosition.x, newPosition.y);
   }
 
   void moveSkinToRandomSkin(int bobPosition) {
     Bob bob = getBob(bobPosition);
     Bob randomBob = getBob(int(random(bobsSize)));
     PVector newPosition = randomBob.getRandomeVertice();
-    bob.switchVerticesToNextPosition(int(newPosition.x), int(newPosition.y));
+    bob.switchVerticesToNextPosition(newPosition.x, newPosition.y);
     bob.shakeVertices();
   }
 
@@ -86,8 +84,8 @@ class Bobs {
       Bob bob = getBob(i);
       if (isDrawing) {
         // switchToNextBob(i);
-        moveToNextBob(i);
-        // moveSkinToRandomSkin(i);
+        // moveToNextBob(i);
+        moveSkinToRandomSkin(i);
       }
       bob.drawShape(isCurved);
     }

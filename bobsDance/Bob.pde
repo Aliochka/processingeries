@@ -4,13 +4,11 @@ class Bob {
   float hue, saturation, brightness;
   int entropy = 2;
   int verticesNumber;
-  Field field;
 
-  Bob (int x, int y, int verticesNumber, Field field) {
+  Bob (int x, int y, int verticesNumber) {
     hue = random(100);
     saturation = (60 ) % 100;
     brightness = 100;
-    this.field = field;
     this.verticesNumber = verticesNumber;
     vertices = new PVector[verticesNumber];
     for(int i = 0; i < verticesNumber; i++) {
@@ -38,7 +36,7 @@ class Bob {
     s.endShape(CLOSE);
   }
 
-  void switchVerticesToNextPosition(int x, int y) {
+  void switchVerticesToNextPosition(float x, float y) {
     int position = 0;
     PVector vertice = new PVector();
     PVector nextVertice = new PVector();
@@ -48,7 +46,7 @@ class Bob {
         nextVertice = vertices[position + 1];
         vertice.x = nextVertice.x;
         vertice.y = nextVertice.y;
-        field.occupyFree(int(vertice.x * vertice.y));
+        field.occupyFree(int(nextVertice.x), int(nextVertice.y));
         position++;
       }
       nextVertice.x = x;
@@ -58,7 +56,7 @@ class Bob {
       vertice = vertices[position];
       vertice.x = x;
       vertice.y = y;
-      field.occupyFree(int(vertice.x * vertice.y));
+      field.occupyFree(int(vertice.x), int(vertice.y));
     }
   }
 

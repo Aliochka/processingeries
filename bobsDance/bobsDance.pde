@@ -4,7 +4,7 @@ boolean isCreatingBob = false;
 boolean isRecording = false;
 boolean isDrawing = false;
 boolean isCurved = true;
-int backgroundColor = 0;
+int backgroundColor = 36;
 Bobs bobs;
 Field field;
 
@@ -13,22 +13,23 @@ void setup() {
   colorMode(HSB, 100);
   background(backgroundColor);
   strokeWeight(5);
-  // initializeBobs();
-  frameRate(10);
   field = new Field();
-  bobs = new Bobs(width / 2, height / 2, 5, field);
+  // initializeBobs();
+  // frameRate(10);
+    bobs = new Bobs(width / 2, height / 2, 5);
+  println("init finito");
 }
 
 void draw() {
-  refreshCanvas(backgroundColor);
+  // refreshCanvas(backgroundColor);
   field.drawField();
+  bobs.drawBobs();
 
   // press b to create bobs
   if (isCreatingBob & frameCount % 5 == 0) {
     println("new bob");
     bobs.welcomeExclude(mouseX, mouseY);
   }
-  bobs.drawBobs();
 
 
   // press r

@@ -1,15 +1,17 @@
-class FieldPixel {
-  boolean isOccupied;
+public class FieldPixel {
+  private boolean isOccupied = true;
 
   FieldPixel() {
-    isOccupied = false;
+    // this.isOccupied = random(0,5) > 2 ? false : true;
+    this.isOccupied = true;
+
   }
 
-  Boolean isOccupied() {
+  public Boolean isOccupied() {
     return isOccupied;
   }
 
-  void occupyFree() {
-    isOccupied = !isOccupied;
+  public void occupyFree() {
+    this.isOccupied = !this.isOccupied;
   }
 }

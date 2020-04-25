@@ -6,7 +6,7 @@ void record() {
 }
 
 void refreshCanvas(int backgroundColor) {
-  background(backgroundColor);
+  // background(backgroundColor);
 /*  noStroke();
   fill(backgroundColor, 10);
   rect(-10, 10, width+10, height+10);*/
