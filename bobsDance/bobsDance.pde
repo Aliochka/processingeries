@@ -16,14 +16,14 @@ void setup() {
   field = new Field();
   // initializeBobs();
   // frameRate(10);
-    bobs = new Bobs(width / 2, height / 2, 5);
+  bobs = new Bobs(width / 2, height / 2, 5);
   println("init finito");
 }
 
 void draw() {
   // refreshCanvas(backgroundColor);
   field.drawField();
-  bobs.drawBobs();
+  // bobs.drawBobs();
 
   // press b to create bobs
   if (isCreatingBob & frameCount % 5 == 0) {

@@ -2,8 +2,8 @@ public class FieldPixel {
   private boolean isOccupied = true;
 
   FieldPixel() {
-    // this.isOccupied = random(0,5) > 2 ? false : true;
-    this.isOccupied = true;
+    this.isOccupied = false;
+    // this.isOccupied = true;
 
   }
 

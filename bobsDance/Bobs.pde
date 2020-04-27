@@ -46,6 +46,7 @@ class Bobs {
   }
 
   void switchToNextBob(int bobPosition) {
+    // rename me !
     Bob bob = getBob(bobPosition);
     Bob nextBob;
     if (bobsSize - bobPosition >= 2) {
@@ -57,7 +58,8 @@ class Bobs {
     bob.switchToNextBob(nextBob);
   }
 
-  void moveToNextBob(int bobPosition) {
+  void moveApproximativelyToNextBob(int bobPosition) {
+    // rename me !
     Bob bob = getBob(bobPosition);
     Bob nextBob;
     if (bobsSize - bobPosition > 1) {
@@ -71,6 +73,7 @@ class Bobs {
   }
 
   void moveSkinToRandomSkin(int bobPosition) {
+    // use random function
     Bob bob = getBob(bobPosition);
     Bob randomBob = getBob(int(random(bobsSize)));
     PVector newPosition = randomBob.getRandomeVertice();
@@ -83,9 +86,9 @@ class Bobs {
     for (int i = bobsSize; i >= 0; i--) {
       Bob bob = getBob(i);
       if (isDrawing) {
-        // switchToNextBob(i);
-        // moveToNextBob(i);
-        moveSkinToRandomSkin(i);
+        switchToNextBob(i);
+        // moveApproximativelyToNextBob(i);
+        // moveSkinToRandomSkin(i);
       }
       bob.drawShape(isCurved);
     }

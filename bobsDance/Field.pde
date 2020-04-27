@@ -1,6 +1,6 @@
 class Field {
   int screenSize;
-  int minimizer = 10;
+  int minimizer = 2;
   int pixelWidthNumber = width / minimizer;
   int pixelHeightNumber = height / minimizer;
   int pixelRatio = width / height;
@@ -70,11 +70,49 @@ class Field {
     ellipse(x, y, 50, 50);
   }
 
+  void gameOfLife(int x, int y){
+      if (y > 0) {
+        if (x > 0){
+          // en haut à gauche
+          this.fieldPixels[x - 1][y - 1].occupyFree();
+        }
+        // en haut
+        this.fieldPixels[x][y - 1].occupyFree();
+        if (x < pixelWidthNumber - 1) {
+          // en haut à droite
+          this.fieldPixels[x + 1][y - 1].occupyFree();
+        }
+      }
+      if (x > 0) {
+        // gauche
+        this.fieldPixels[x - 1][y].occupyFree();
+      }
+      // lui-même
+      this.fieldPixels[x][y].occupyFree();
+      if (x < pixelWidthNumber - 1) {
+        // droite
+        this.fieldPixels[x + 1][y].occupyFree();
+      }
+      if (y < pixelHeightNumber -1) {
+        if (x > 0){
+          // en bas à gauche
+          this.fieldPixels[x - 1][y + 1].occupyFree();
+        }
+        // en bas
+        this.fieldPixels[x][y + 1].occupyFree();
+        if (x < pixelWidthNumber - 1){
+          // en bas à droite
+          this.fieldPixels[x + 1][y + 1].occupyFree();
+        }
+      }
+  }
+
   public void drawField(){
     for(int x = 0; x < pixelWidthNumber; x++) {
       for(int y = 0; y < pixelHeightNumber; y++) {
         boolean isOccupied = this._isOccupied(x, y);
         if (isOccupied) {
+          this.gameOfLife(x, y);
           fill(50);
         }
         else {

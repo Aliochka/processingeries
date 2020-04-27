@@ -85,6 +85,7 @@ class Bob {
       PVector bobVertice = this.getVertice(i);
       bobVertice.x = nextBobVertice.x;
       bobVertice.y = nextBobVertice.y;
+      field.occupyFree(int(nextBobVertice.x), int(nextBobVertice.y));
     }
   }
 
