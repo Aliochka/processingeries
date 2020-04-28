@@ -1,6 +1,6 @@
 class Field {
   int screenSize;
-  int minimizer = 2;
+  int minimizer = 5;
   int pixelWidthNumber = width / minimizer;
   int pixelHeightNumber = height / minimizer;
   int pixelRatio = width / height;
@@ -77,7 +77,7 @@ class Field {
           this.fieldPixels[x - 1][y - 1].occupyFree();
         }
         // en haut
-        this.fieldPixels[x][y - 1].occupyFree();
+        // this.fieldPixels[x][y - 1].occupyFree();
         if (x < pixelWidthNumber - 1) {
           // en haut à droite
           this.fieldPixels[x + 1][y - 1].occupyFree();
@@ -91,7 +91,7 @@ class Field {
       this.fieldPixels[x][y].occupyFree();
       if (x < pixelWidthNumber - 1) {
         // droite
-        this.fieldPixels[x + 1][y].occupyFree();
+        // this.fieldPixels[x + 1][y].occupyFree();
       }
       if (y < pixelHeightNumber -1) {
         if (x > 0){
@@ -99,7 +99,7 @@ class Field {
           this.fieldPixels[x - 1][y + 1].occupyFree();
         }
         // en bas
-        this.fieldPixels[x][y + 1].occupyFree();
+        // this.fieldPixels[x][y + 1].occupyFree();
         if (x < pixelWidthNumber - 1){
           // en bas à droite
           this.fieldPixels[x + 1][y + 1].occupyFree();
@@ -107,19 +107,29 @@ class Field {
       }
   }
 
+  void occupy(int x, int y){
+    this.fieldPixels[x][y].occupy();
+  }
+
   public void drawField(){
     for(int x = 0; x < pixelWidthNumber; x++) {
       for(int y = 0; y < pixelHeightNumber; y++) {
         boolean isOccupied = this._isOccupied(x, y);
-        if (isOccupied) {
-          this.gameOfLife(x, y);
-          fill(50);
+        if (isDrawing) {
+          this.occupy(x, y);
         }
         else {
-          fill(100);
+          if (isOccupied) {
+            this.gameOfLife(x, y);
+            fill(0);
+          }
+          else {
+            fill(100);
+          }
+          noStroke();
+          ellipse(x  * minimizer, y * minimizer, minimizer * pixelRatio, minimizer * pixelRatio);
         }
-        noStroke();
-        rect(x  * minimizer, y * minimizer, minimizer * pixelRatio, minimizer * pixelRatio);
+
       }
     }
   }

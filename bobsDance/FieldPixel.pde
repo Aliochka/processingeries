@@ -14,4 +14,8 @@ public class FieldPixel {
   public void occupyFree() {
     this.isOccupied = !this.isOccupied;
   }
+
+  public void occupy() {
+    this.isOccupied = false;
+  }
 }

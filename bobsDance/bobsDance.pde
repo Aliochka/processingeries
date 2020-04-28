@@ -9,13 +9,13 @@ Bobs bobs;
 Field field;
 
 void setup() {
-  size(1024, 720, P2D);
+  size(720, 720, P2D);
   colorMode(HSB, 100);
   background(backgroundColor);
   strokeWeight(5);
   field = new Field();
   // initializeBobs();
-  // frameRate(10);
+  frameRate(10);
   bobs = new Bobs(width / 2, height / 2, 5);
   println("init finito");
 }
