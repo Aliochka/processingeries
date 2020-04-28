@@ -1,8 +1,8 @@
 class Field {
   int screenSize;
-  int minimizer = 5;
-  int pixelWidthNumber = width / minimizer;
-  int pixelHeightNumber = height / minimizer;
+  int minimizer = 4;
+  int pixelWidthNumber = width / minimizer + 1;
+  int pixelHeightNumber = height / minimizer + 1;
   int pixelRatio = width / height;
   int pixelNumber = int(pixelWidthNumber * pixelHeightNumber);
   private FieldPixel[][] fieldPixels = new FieldPixel[pixelWidthNumber][pixelHeightNumber];
@@ -60,7 +60,7 @@ class Field {
   int convertPositionToResolution(int x, int y) {
     int currentPosition = int((x / minimizer) * (y / minimizer));
     int position = currentPosition <= 0 ?
-      0 : currentPosition >= pixelNumber - 1 ?
+      0 : currentPosition >= pixelNumber - 1?
         pixelNumber - 1 : currentPosition;
     return position;
   }
@@ -70,64 +70,97 @@ class Field {
     ellipse(x, y, 50, 50);
   }
 
-  void gameOfLife(int x, int y){
-      if (y > 0) {
-        if (x > 0){
-          // en haut à gauche
-          this.fieldPixels[x - 1][y - 1].occupyFree();
-        }
-        // en haut
-        // this.fieldPixels[x][y - 1].occupyFree();
-        if (x < pixelWidthNumber - 1) {
-          // en haut à droite
-          this.fieldPixels[x + 1][y - 1].occupyFree();
+  int countOccupyNeighbour(int x, int y) {
+    int aliveNeighbourCount = 0;
+    if (y > 0) {
+      if (x > 0){
+        // en haut à gauche
+        if(this.fieldPixels[x - 1][y - 1].isOccupied()){
+          aliveNeighbourCount++;
         }
       }
-      if (x > 0) {
-        // gauche
-        this.fieldPixels[x - 1][y].occupyFree();
+      // en haut
+      if(this.fieldPixels[x][y - 1].isOccupied()){
+        aliveNeighbourCount++;
       }
-      // lui-même
-      this.fieldPixels[x][y].occupyFree();
       if (x < pixelWidthNumber - 1) {
-        // droite
-        // this.fieldPixels[x + 1][y].occupyFree();
-      }
-      if (y < pixelHeightNumber -1) {
-        if (x > 0){
-          // en bas à gauche
-          this.fieldPixels[x - 1][y + 1].occupyFree();
-        }
-        // en bas
-        // this.fieldPixels[x][y + 1].occupyFree();
-        if (x < pixelWidthNumber - 1){
-          // en bas à droite
-          this.fieldPixels[x + 1][y + 1].occupyFree();
+        // en haut à droite
+        if(this.fieldPixels[x + 1][y - 1].isOccupied()){
+          aliveNeighbourCount++;
         }
       }
+    }
+    if (x > 0) {
+      // gauche
+      if(this.fieldPixels[x - 1][y].isOccupied()){
+        aliveNeighbourCount++;
+      }
+    }
+    // lui-même
+    // if(this.fieldPixels[x][y].isOccupied()){
+    //   aliveNeighbourCount++;
+    // }
+    if (x < pixelWidthNumber - 1) {
+      // droite
+      if(this.fieldPixels[x + 1][y].isOccupied()){
+        aliveNeighbourCount++;
+      }
+    }
+    if (y < pixelHeightNumber -1) {
+      if (x > 0){
+        // en bas à gauche
+        if(this.fieldPixels[x - 1][y + 1].isOccupied()){
+          aliveNeighbourCount++;
+        }
+      }
+      // en bas
+      if(this.fieldPixels[x][y + 1].isOccupied()){
+        aliveNeighbourCount++;
+      }
+      if (x < pixelWidthNumber - 1){
+        // en bas à droite
+        if(this.fieldPixels[x + 1][y + 1].isOccupied()){
+          aliveNeighbourCount++;
+        }
+      }
+    }
+    return aliveNeighbourCount;
   }
 
-  void occupy(int x, int y){
-    this.fieldPixels[x][y].occupy();
+  void gameOfLife(int x, int y){
+    if (this.fieldPixels[x][y].isOccupied()) {
+      if (this.countOccupyNeighbour(x, y) < 2 | this.countOccupyNeighbour(x, y) > 3) {
+        // any alive cell < 2 alive neighbour die
+        // neighbour > 3 friend, die
+        this.fieldPixels[x][y].occupyFree();
+      }
+      // 2 or 3 neighbour, live
+    }
+    else {
+      if(this.countOccupyNeighbour(x, y) == 3){
+        // dead with 3 alive, live
+        this.fieldPixels[x][y].occupyFree();
+      }
+    }
   }
 
   public void drawField(){
     for(int x = 0; x < pixelWidthNumber; x++) {
       for(int y = 0; y < pixelHeightNumber; y++) {
+        this.gameOfLife(x, y);
         boolean isOccupied = this._isOccupied(x, y);
         if (isDrawing) {
-          this.occupy(x, y);
+          this.fieldPixels[x][y].randomlyOccupy();
         }
         else {
           if (isOccupied) {
-            this.gameOfLife(x, y);
             fill(0);
           }
           else {
             fill(100);
           }
           noStroke();
-          ellipse(x  * minimizer, y * minimizer, minimizer * pixelRatio, minimizer * pixelRatio);
+          rect(x  * minimizer, y * minimizer, minimizer * pixelRatio, minimizer * pixelRatio);
         }
 
       }

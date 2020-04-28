@@ -1,8 +1,11 @@
 public class FieldPixel {
   private boolean isOccupied = true;
+  int percentage = 6;
 
   FieldPixel() {
-    this.isOccupied = false;
+
+    this.isOccupied = random(0, 100) < percentage ? true : false;
+    // this.isOccupied = false;
     // this.isOccupied = true;
 
   }
@@ -15,7 +18,11 @@ public class FieldPixel {
     this.isOccupied = !this.isOccupied;
   }
 
-  public void occupy() {
+  public void free() {
     this.isOccupied = false;
+  }
+
+  public void randomlyOccupy() {
+    this.isOccupied = random(0, 100) < percentage ? true : false;
   }
 }

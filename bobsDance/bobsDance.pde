@@ -4,18 +4,18 @@ boolean isCreatingBob = false;
 boolean isRecording = false;
 boolean isDrawing = false;
 boolean isCurved = true;
-int backgroundColor = 36;
+int backgroundColor = 0;
 Bobs bobs;
 Field field;
 
 void setup() {
-  size(720, 720, P2D);
+  size(1000, 1000, P2D);
   colorMode(HSB, 100);
   background(backgroundColor);
   strokeWeight(5);
   field = new Field();
   // initializeBobs();
-  frameRate(10);
+  frameRate(20);
   bobs = new Bobs(width / 2, height / 2, 5);
   println("init finito");
 }
