@@ -36,7 +36,7 @@ class Bob {
     s.endShape(CLOSE);
   }
 
-  void switchVerticesToNextPosition(float x, float y) {
+  void moveApproximativelyToNextPosition(float x, float y) {
     int position = 0;
     PVector vertice = new PVector();
     PVector nextVertice = new PVector();
@@ -85,12 +85,28 @@ class Bob {
       PVector bobVertice = this.getVertice(i);
       bobVertice.x = nextBobVertice.x;
       bobVertice.y = nextBobVertice.y;
-      field.occupyFree(int(nextBobVertice.x), int(nextBobVertice.y));
+      field.occupy(int(nextBobVertice.x), int(nextBobVertice.y));
+    }
+  }
+
+  void moveVertices(){
+    for(PVector vertice : vertices) {
+      vertice.x += 1;
+      vertice.y += 1;
+      if(vertice.x > width) {
+        vertice.x = 0;
+      }
+      if(vertice.y > height) {
+        vertice.y = 0;
+      }
     }
   }
 
   void drawShape(boolean isCurved) {
+    moveVertices();
     buildShape(isCurved);
-    shape(s, 0, 0);
+    if (showBobs) {
+      shape(s, 0, 0);
+    }
   }
 }

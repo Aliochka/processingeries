@@ -31,6 +31,10 @@ class Field {
     this.fieldPixels[int(position.x)][int(position.y)].occupyFree();
   }
 
+  public void occupy(int x, int y) {
+    int[] position = mapCoordToPixel(x, y);
+    this.fieldPixels[position[0]][position[1]].occupy();  }
+
   public void occupyFree(int x, int y) {
     int[] position = mapCoordToPixel(x, y);
     this.fieldPixels[position[0]][position[1]].occupyFree();
@@ -147,21 +151,15 @@ class Field {
   public void drawField(){
     for(int x = 0; x < pixelWidthNumber; x++) {
       for(int y = 0; y < pixelHeightNumber; y++) {
-        this.gameOfLife(x, y);
         boolean isOccupied = this._isOccupied(x, y);
-        if (isDrawing) {
-          this.fieldPixels[x][y].randomlyOccupy();
+        if (isOccupied) {
+          fill(0);
         }
         else {
-          if (isOccupied) {
-            fill(0);
-          }
-          else {
-            fill(100);
-          }
-          noStroke();
-          rect(x  * minimizer, y * minimizer, minimizer * pixelRatio, minimizer * pixelRatio);
+          fill(100);
         }
+        noStroke();
+        rect(x  * minimizer, y * minimizer, minimizer * pixelRatio, minimizer * pixelRatio);
 
       }
     }
