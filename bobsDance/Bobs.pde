@@ -68,18 +68,17 @@ class Bobs {
     else {
       nextBob = getBob(0);
     }
-    PVector newPosition = nextBob.getVertice(0);
-    bob.moveApproximativelyToNextPosition(newPosition.x, newPosition.y);
+    Agent newPosition = nextBob.getVertice(0);
+    bob.moveApproximativelyToNextPosition(newPosition.position.x, newPosition.position.y);
   }
 
   void moveSkinToRandomSkin(int bobPosition) {
     // use random function
     Bob bob = getBob(bobPosition);
     Bob randomBob = getBob(int(random(bobsSize)));
-    PVector newPosition = randomBob.getRandomeVertice();
-    bob.moveApproximativelyToNextPosition(newPosition.x, newPosition.y);
-    bob.shakeVertices();
-  }
+    Agent newPosition = randomBob.getRandomVertice();
+    bob.moveApproximativelyToNextPosition(newPosition.position.x, newPosition.position.y);
+    }
 
   void drawBobs() {
     bobsSize = bobsSize() - 1;
@@ -87,7 +86,7 @@ class Bobs {
       Bob bob = getBob(i);
       if (isDrawing) {
         // switchToNextBob(i);
-        moveApproximativelyToNextBob(i);
+        // moveApproximativelyToNextBob(i);
         // moveSkinToRandomSkin(i);
       }
       bob.drawShape(isCurved);

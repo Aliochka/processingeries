@@ -1,6 +1,6 @@
 class Bob {
   PShape s;
-  PVector[] vertices;
+  Agent[] vertices;
   float hue, saturation, brightness;
   int entropy = 2;
   int verticesNumber;
@@ -10,9 +10,9 @@ class Bob {
     saturation = (60 ) % 100;
     brightness = 100;
     this.verticesNumber = verticesNumber;
-    vertices = new PVector[verticesNumber];
+    vertices = new Agent[verticesNumber];
     for(int i = 0; i < verticesNumber; i++) {
-      vertices[i] = new PVector(x + random(-100,100), y + random(-100,100));
+      vertices[i] = new Agent(new PVector(x + random(-100,100), y + random(-100,100)));
     }
   }
 
@@ -24,12 +24,12 @@ class Bob {
     // s.fill(hue, saturation, brightness);
     s.noFill();
     for(int i = 0; i < verticesNumber; i++) {
-      PVector vertice = vertices[i];
+      Agent vertice = vertices[i];
       if (isCurved){
-        s.curveVertex(vertice.x, vertice.y);
+        s.curveVertex(vertice.position.x, vertice.position.y);
       }
       else {
-        s.vertex(vertice.x, vertice.y);
+        s.vertex(vertice.position.x, vertice.position.y);
       }
     }
     // s.endShape();
@@ -38,25 +38,25 @@ class Bob {
 
   void moveApproximativelyToNextPosition(float x, float y) {
     int position = 0;
-    PVector vertice = new PVector();
-    PVector nextVertice = new PVector();
+    Agent vertice = new Agent();
+    Agent nextVertice = new Agent();
     if (verticesNumber > 2) {
       while(verticesNumber - position > 1) {
         vertice = vertices[position];
         nextVertice = vertices[position + 1];
-        vertice.x = nextVertice.x;
-        vertice.y = nextVertice.y;
-        field.occupyFree(int(nextVertice.x), int(nextVertice.y));
+        vertice.position.x = nextVertice.position.x;
+        vertice.position.y = nextVertice.position.y;
+        field.occupyFree(int(nextVertice.position.x), int(nextVertice.position.y));
         position++;
       }
-      nextVertice.x = x;
-      nextVertice.y = y;
+      nextVertice.position.x = x;
+      nextVertice.position.y = y;
     }
     else {
       vertice = vertices[position];
-      vertice.x = x;
-      vertice.y = y;
-      field.occupyFree(int(vertice.x), int(vertice.y));
+      vertice.position.x = x;
+      vertice.position.y = y;
+      field.occupyFree(int(vertice.position.x), int(vertice.position.y));
     }
   }
 
@@ -64,41 +64,35 @@ class Bob {
     return vertices.length;
   }
 
-  PVector getVertice(int position) {
-    return vertices[position];
+  Agent getVertice(int verticeNumber) {
+    return vertices[verticeNumber];
   }
 
-  PVector getRandomeVertice() {
+  Agent getRandomVertice() {
     return vertices[int(random(verticesNumber - 1))];
-  }
-
-  void shakeVertices() {
-    for(PVector vertice : vertices) {
-      vertice.y += random(-entropy, entropy);
-      vertice.x += random(-entropy, entropy);
-    }
   }
 
   void switchToNextBob(Bob nextBob) {
     for(int i = 0 ; i < verticesNumber; i++) {
-      PVector nextBobVertice = nextBob.getVertice(i);
-      PVector bobVertice = this.getVertice(i);
-      bobVertice.x = nextBobVertice.x;
-      bobVertice.y = nextBobVertice.y;
-      field.occupy(int(nextBobVertice.x), int(nextBobVertice.y));
+      Agent nextBobVertice = nextBob.getVertice(i);
+      Agent bobVertice = this.getVertice(i);
+      bobVertice.position.x = nextBobVertice.position.x;
+      bobVertice.position.y = nextBobVertice.position.y;
+      field.occupy(int(nextBobVertice.position.x), int(nextBobVertice.position.y));
     }
   }
 
   void moveVertices(){
-    for(PVector vertice : vertices) {
-      vertice.x += 1;
-      vertice.y += 1;
-      if(vertice.x > width) {
-        vertice.x = 0;
-      }
-      if(vertice.y > height) {
-        vertice.y = 0;
-      }
+    for(Agent vertice : vertices) {
+      vertice.updatePosition();
+      // vertice.x += 1;
+      // vertice.y += 1;
+      // if(vertice.x > width) {
+      //   vertice.x = 0;
+      // }
+      // if(vertice.y > height) {
+      //   vertice.y = 0;
+      // }
     }
   }
 
