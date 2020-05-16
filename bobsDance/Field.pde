@@ -1,6 +1,6 @@
 class Field {
   int screenSize;
-  int minimizer = 4;
+  int minimizer = 2;
   int pixelWidthNumber = width / minimizer + 1;
   int pixelHeightNumber = height / minimizer + 1;
   int pixelRatio = width / height;
@@ -18,8 +18,13 @@ class Field {
   }
 
   public Boolean isOccupied(PVector position) {
-    position = mapCoordToPixel(position);
-    return this.fieldPixels[int(position.x)][int(position.y)].isOccupied();
+    int[] mappedPosition = mapCoordToPixel(int(position.x), int(position.y));
+    return this.fieldPixels[mappedPosition[0]][mappedPosition[1]].isOccupied();
+  }
+
+  public Boolean isOccupied(int x, int y) {
+    int[] mappedPosition = mapCoordToPixel(x, y);
+    return this.fieldPixels[mappedPosition[0]][mappedPosition[1]].isOccupied();
   }
 
   public Boolean _isOccupied(int x, int y) {
@@ -27,51 +32,31 @@ class Field {
   }
 
   public void occupyFree(PVector position) {
-    position = mapCoordToPixel(position);
-    this.fieldPixels[int(position.x)][int(position.y)].occupyFree();
+    int[] mappedPosition = mapCoordToPixel(int(position.x), int(position.y));
+    this.fieldPixels[mappedPosition[0]][mappedPosition[1]].occupyFree();
+  }
+
+  public void occupyFree(int x, int y) {
+    int[] mappedPosition = mapCoordToPixel(x, y);
+    this.fieldPixels[mappedPosition[0]][mappedPosition[1]].occupyFree();
   }
 
   public void occupy(int x, int y) {
-    int[] position = mapCoordToPixel(x, y);
-    this.fieldPixels[position[0]][position[1]].occupy();  }
-
-  public void occupyFree(int x, int y) {
-    int[] position = mapCoordToPixel(x, y);
-    this.fieldPixels[position[0]][position[1]].occupyFree();
-  }
-
-  PVector mapCoordToPixel(PVector position){
-    println("1 -x : " + position.x + " | y : " + position.y);
-    position.x = map(position.x, 0, width, 0, pixelWidthNumber);
-    position.y = map(position.y, 0, height, 0, pixelHeightNumber);
-    println("2 -x : " + position.x + " | y : " + position.y);
-    return position;
+    int[] mappedPosition = mapCoordToPixel(x, y);
+    this.fieldPixels[mappedPosition[0]][mappedPosition[1]].occupy();
   }
 
   int[] mapCoordToPixel(int x, int y){
-    int[] position = new int[2];
-    position[0] = int(x / minimizer);
-    position[1] = int(y/ minimizer);
-    position[0] = position[0] <= 0 ?
-      0 : position[0] >= pixelWidthNumber - 1 ?
-        pixelWidthNumber - 1 : position[0];
-    position[1] = position[1] <= 0 ?
-      0 : position[1] >= pixelHeightNumber - 1 ?
-        pixelHeightNumber - 1 : position[1];
-    return position;
-  }
-
-  int convertPositionToResolution(int x, int y) {
-    int currentPosition = int((x / minimizer) * (y / minimizer));
-    int position = currentPosition <= 0 ?
-      0 : currentPosition >= pixelNumber - 1?
-        pixelNumber - 1 : currentPosition;
-    return position;
-  }
-
-  void drawFieldPixel(int x, int y) {
-    fill(25,65,10);
-    ellipse(x, y, 50, 50);
+    int[] mappedPosition = new int[2];
+    mappedPosition[0] = int(x / minimizer);
+    mappedPosition[1] = int(y / minimizer);
+    mappedPosition[0] = mappedPosition[0] <= 0 ?
+      0 : mappedPosition[0] >= pixelWidthNumber - 1 ?
+        pixelWidthNumber - 1 : mappedPosition[0];
+    mappedPosition[1] = mappedPosition[1] <= 0 ?
+      0 : mappedPosition[1] >= pixelHeightNumber - 1 ?
+        pixelHeightNumber - 1 : mappedPosition[1];
+    return mappedPosition;
   }
 
   int countOccupyNeighbour(int x, int y) {
@@ -156,11 +141,10 @@ class Field {
           fill(0);
         }
         else {
-          fill(100);
+          fill(100  );
         }
         noStroke();
         rect(x  * minimizer, y * minimizer, minimizer * pixelRatio, minimizer * pixelRatio);
-
       }
     }
   }

@@ -17,7 +17,6 @@ class Agent
         isPositionResetWhenOutside = true;
     }
 
-    // Un autre constructeur dont l'argument 'position' permet de spécifier une position
     Agent(PVector position)
     {
         this(); // Appel du constructeur par défaut pour initialiser tous les attributs
@@ -25,17 +24,32 @@ class Agent
         previousPosition = position.get();
     }
 
-    // Une méthode de la classe permettant de mettre à jour la position de l'agent (en fonction de son angle de déplacement actuel)
     void updatePosition()
     {
         previousPosition = position.get(); // Sauvegarde de la position précédente
-        position.x += cos(angle) * stepSize; // L'agent avance sur une distance égale à 'stepSize' à partir de sa position actuelle, selon un angle 'angle'
-        position.y += sin(angle) * stepSize;
+        float newAngle = random(2 * PI);
+        PVector tryPosition = position.get();
+        tryPosition.x +=  cos(angle) * stepSize; // L'agent avance sur une distance égale à 'stepSize' à partir de sa position actuelle, selon un angle 'angle'
+        tryPosition.y +=  sin(angle) * stepSize;
+        int i = 0;
+        while (field.isOccupied(tryPosition) && i <= 9) {
+          angle = newAngle * i / 9 * 2 * PI;
+          tryPosition.x = position.x + cos(angle) * stepSize; // L'agent avance sur une distance égale à 'stepSize' à partir de sa position actuelle, selon un angle 'angle'
+          tryPosition.y = position.y + sin(angle) * stepSize;
+          i++;
+        }
+        position.x = tryPosition.x; // L'agent avance sur une distance égale à 'stepSize' à partir de sa position actuelle, selon un angle 'angle'
+        position.y = tryPosition.y;
+
+        // position.x += cos(angle) * stepSize;
+        // position.y += sin(angle) * stepSize;
         if (isPositionResetWhenOutside && isOutsideSketch() > 0)
         {
-            position = new PVector(random(width), random(height)); // Si l'agent sort du sketch, on lui attribue une nouvelle position aléatoire
+            angle = random(2 * PI);
+            // position = new PVector(random(width), random(height)); // Si l'agent sort du sketch, on lui attribue une nouvelle position aléatoire
             previousPosition = position.get();
         }
+        field.occupy(int(position.x), int(position.y));
     }
 
     // Une méthode permettant de vérifier si l'agent est sorti des limites de l'espace du sketch (+ marges)

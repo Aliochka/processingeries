@@ -5,8 +5,8 @@ public void mousePressed() {
   }
   // PVector position = new PVector(mouseX, mouseY);
   field.occupyFree(mouseX, mouseY);
-
-
+  println(field.isOccupied(new PVector(mouseX, mouseY)));
+  println(field.isOccupied(mouseX, mouseY));
 }
 
 void keyPressed() {

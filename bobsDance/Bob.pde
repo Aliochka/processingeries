@@ -46,7 +46,6 @@ class Bob {
         nextVertice = vertices[position + 1];
         vertice.position.x = nextVertice.position.x;
         vertice.position.y = nextVertice.position.y;
-        field.occupyFree(int(nextVertice.position.x), int(nextVertice.position.y));
         position++;
       }
       nextVertice.position.x = x;
@@ -56,7 +55,6 @@ class Bob {
       vertice = vertices[position];
       vertice.position.x = x;
       vertice.position.y = y;
-      field.occupyFree(int(vertice.position.x), int(vertice.position.y));
     }
   }
 
@@ -78,7 +76,6 @@ class Bob {
       Agent bobVertice = this.getVertice(i);
       bobVertice.position.x = nextBobVertice.position.x;
       bobVertice.position.y = nextBobVertice.position.y;
-      field.occupy(int(nextBobVertice.position.x), int(nextBobVertice.position.y));
     }
   }
 
@@ -97,9 +94,11 @@ class Bob {
   }
 
   void drawShape(boolean isCurved) {
-    moveVertices();
-    buildShape(isCurved);
+    if (isDrawing) {
+      moveVertices();
+    }
     if (showBobs) {
+      buildShape(isCurved);
       shape(s, 0, 0);
     }
   }
