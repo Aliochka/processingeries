@@ -1,6 +1,6 @@
 class Field {
   int screenSize;
-  int minimizer = 2;
+  int minimizer = 4;
   int pixelWidthNumber = width / minimizer + 1;
   int pixelHeightNumber = height / minimizer + 1;
   int pixelRatio = width / height;

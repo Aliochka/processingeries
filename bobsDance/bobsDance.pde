@@ -20,7 +20,7 @@ void setup() {
   // frameRate(20);
   // bobs = new Bobs(width / 2, height / 2, 5);
   for(int i = 0; i < bobsNumber; i++) {
-    Bobs[i] = new Bobs(int(random(width)), int(random(height)), 12);
+    Bobs[i] = new Bobs(int(random(width)), int(random(height)), 31);
   }
   println("init finito");
 }

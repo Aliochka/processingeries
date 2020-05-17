@@ -28,25 +28,19 @@ class Agent
     {
         previousPosition = position.get(); // Sauvegarde de la position précédente
         float newAngle = random(2 * PI);
-        PVector tryPosition = position.get();
-        tryPosition.x +=  cos(angle) * stepSize; // L'agent avance sur une distance égale à 'stepSize' à partir de sa position actuelle, selon un angle 'angle'
-        tryPosition.y +=  sin(angle) * stepSize;
+        position.x += cos(angle) * stepSize;
+        position.y += sin(angle) * stepSize;
         int i = 0;
-        while (field.isOccupied(tryPosition) && i <= 9) {
-          angle = newAngle * i / 9 * 2 * PI;
-          tryPosition.x = position.x + cos(angle) * stepSize; // L'agent avance sur une distance égale à 'stepSize' à partir de sa position actuelle, selon un angle 'angle'
-          tryPosition.y = position.y + sin(angle) * stepSize;
+        while (field.isOccupied(position) & i <= 9) {
+          angle = (i / 9) * 2 * PI;
+          position.x = previousPosition.x + cos(angle) * stepSize;
+          position.y = previousPosition.y + sin(angle) * stepSize;
           i++;
         }
-        position.x = tryPosition.x; // L'agent avance sur une distance égale à 'stepSize' à partir de sa position actuelle, selon un angle 'angle'
-        position.y = tryPosition.y;
-
-        // position.x += cos(angle) * stepSize;
-        // position.y += sin(angle) * stepSize;
         if (isPositionResetWhenOutside && isOutsideSketch() > 0)
         {
-            angle = random(2 * PI);
-            // position = new PVector(random(width), random(height)); // Si l'agent sort du sketch, on lui attribue une nouvelle position aléatoire
+            // angle = random(2 * PI);
+            position = new PVector(random(width), random(height)); // Si l'agent sort du sketch, on lui attribue une nouvelle position aléatoire
             previousPosition = position.get();
         }
         field.occupy(int(position.x), int(position.y));
