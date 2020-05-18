@@ -1,19 +1,24 @@
 class Field {
   int screenSize;
-  int minimizer = 4;
-  int pixelWidthNumber = width / minimizer + 1;
-  int pixelHeightNumber = height / minimizer + 1;
-  int pixelRatio = width / height;
-  int pixelNumber = int(pixelWidthNumber * pixelHeightNumber);
-  private FieldPixel[][] fieldPixels = new FieldPixel[pixelWidthNumber][pixelHeightNumber];
+  int minimizer;
+  int pixelWidthNumber;
+  int pixelHeightNumber;
+  int pixelRatio;
+  int pixelNumber;
+  private FieldPixel[][] fieldPixels;
 
-  Field() {
-    for (int x = 0 ; x < pixelWidthNumber ; x++) {
-      for (int y = 0 ; y < pixelHeightNumber ; y++) {
+  Field(int minimizer) {
+    this.minimizer = minimizer;
+    this.pixelWidthNumber = width / minimizer + 1;
+    this.pixelHeightNumber = height / minimizer + 1;
+    this.pixelRatio = width / height;
+    this.pixelNumber = int(pixelWidthNumber * pixelHeightNumber);
+    this.fieldPixels = new FieldPixel[pixelWidthNumber][pixelHeightNumber];
+    for (int x = 0 ; x < this.pixelWidthNumber ; x++) {
+      for (int y = 0 ; y <this.pixelHeightNumber ; y++) {
         fieldPixels[x][y] = new FieldPixel();
       }
     }
-
     println("hello happy Field : " + pixelNumber + " pixels.");
   }
 

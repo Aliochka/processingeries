@@ -1,12 +1,11 @@
 class Bobs {
   ArrayList<Bob> bobs = new ArrayList<Bob>();
   int bobsLimit = 10;
-  int bobsVerticesCount = 5;
   int bobsSize;
 
   Bobs (int x, int y, int bobsNumber) {
     for(int i = 0 ; i <= bobsNumber; i++) {
-      bobs.add(0, new Bob( x,  y, bobsVerticesCount));
+      bobs.add(0, new Bob( x,  y, bobVerticesCount));
     }
   }
 
@@ -15,21 +14,21 @@ class Bobs {
     int y = 1;
     for(int i = 0 ; i <= x; i++) {
       for(int j = 0 ; j <= y; j++) {
-        addBob(i * width / x, j * height / y, bobsVerticesCount);
+        addBob(i * width / x, j * height / y);
       }
     }
   }
 
   void welcomeExclude(int x, int y) {
-    addBob(x, y, bobsVerticesCount);
+    addBob(x, y);
     bobsSize = bobs.size() - 1;
     if (bobsSize > bobsLimit) {
       bobs.remove(bobsSize);
     }
   }
 
-  void addBob(int x, int y, int bobsVerticesCount) {
-    bobs.add(0, new Bob(mouseX, mouseY, bobsVerticesCount));
+  void addBob(int x, int y) {
+    bobs.add(0, new Bob(mouseX, mouseY, bobVerticesCount));
   }
 
   Bob getBob(int position) {

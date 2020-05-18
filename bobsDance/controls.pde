@@ -12,11 +12,7 @@ public void mousePressed() {
 void keyPressed() {
   // add help message here
   if (key == 'h'|| key == 'H') {
-    println("for isCreatingBob press : b");
-    println("for isCurved press : c");
-    println("for isRecording press : r");
-    println("for showBobs press : e");
-    println("for isDrawing press : space");
+    printHelp();
   }
   if (key == 'b'|| key == 'B') {
     isCreatingBob = !isCreatingBob;
@@ -34,8 +30,28 @@ void keyPressed() {
     showBobs = !showBobs;
     println("showBobs : " + showBobs);
   }
+  else if (key == 'n' || key == 'N') {
+    field = new Field(4);
+    // frameRate(20);
+    for(int i = 0; i < bobsNumber; i++) {
+      Bobs[i] = new Bobs(int(random(width / 4, 3 * width / 4)), int(random(width / 4, 3 * width / 4)), 1);
+    }
+    println("newCanvas ! ");
+  }
   else if (key == ' ') {
     isDrawing =! isDrawing;
     println("isDrawing : " + isDrawing);
   }
+}
+
+void printHelp(){
+  println("    ***    ");
+  println("for help press : h");
+  println("for isCreatingBob press : b");
+  println("for isCurved press : c");
+  println("for isRecording press : r");
+  println("for showBobs press : e");
+  println("for isDrawing press : space");
+  println("for newCanvas press : n ");
+  println("    ***    ");
 }

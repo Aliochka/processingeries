@@ -7,6 +7,7 @@ boolean isCurved = true;
 boolean showBobs = true;
 int backgroundColor = 0;
 int bobsNumber = 1;
+int bobVerticesCount = 4;
 // Bobs bobs;
 Bobs[] Bobs = new Bobs[bobsNumber];
 Field field;
@@ -16,13 +17,13 @@ void setup() {
   colorMode(HSB, 100);
   background(backgroundColor);
   strokeWeight(5);
-  field = new Field();
+  field = new Field(4);
   // frameRate(20);
-  // bobs = new Bobs(width / 2, height / 2, 5);
   for(int i = 0; i < bobsNumber; i++) {
-    Bobs[i] = new Bobs(int(random(width)), int(random(height)), 31);
+    Bobs[i] = new Bobs(int(random(width / 4, 3 * width / 4)), int(random(width / 4, 3 * width / 4)), 1);
   }
   println("init finito");
+  printHelp();
 }
 
 void draw() {

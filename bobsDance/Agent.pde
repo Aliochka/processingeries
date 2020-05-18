@@ -13,7 +13,7 @@ class Agent
         position = new PVector(random(width), random(height)); // Position aléatoire
         previousPosition = position.get(); // Attention à bien copier le PVector avec la méthode 'get()';
         angle = random(2 * PI); // Angle aléatoire
-        stepSize = 4;
+        stepSize = field.minimizer;
         isPositionResetWhenOutside = true;
     }
 
@@ -24,10 +24,6 @@ class Agent
         previousPosition = position.get();
     }
 
-    void findPath() {
-
-    }
-
     void updatePosition()
     {
         previousPosition = position.get(); // Sauvegarde de la position précédente
@@ -36,8 +32,9 @@ class Agent
         int i = 0;
         float newAngle = angle;
         boolean isOccupied = field.isOccupied(position);
+        int tryByLeftOrRight = random(-1,1) > 0 ? 1 : -1;
         while (isOccupied && (i <= 9)) {
-          newAngle += i * 2 * PI / 9;
+          newAngle += tryByLeftOrRight * (i * 2 * PI / 9);
           position.x = previousPosition.x + cos(newAngle) * stepSize;
           position.y = previousPosition.y + sin(newAngle) * stepSize;
           i++;
@@ -53,31 +50,29 @@ class Agent
         field.occupy(int(position.x), int(position.y));
     }
 
-    // Une méthode permettant de vérifier si l'agent est sorti des limites de l'espace du sketch (+ marges)
-    // La méthode renvoie les valeurs suivantes :
-    // 0: l'agent n'est pas sorti des limites de l'espace du sketch
-    // 1: l'agent est sorti par le haut
-    // 2: l'agent est sorti par la droite
-    // 3: l'agent est sorti par le bas
-    // 4: l'agent est sorti par la gauche
     int isOutsideSketch()
     {
+      // 1: l'agent est sorti par le haut
         if (position.y < 0)
         {
             return 1;
         }
+        // 2: l'agent est sorti par la droite
         else if (position.x > width)
         {
             return 2;
         }
+        // 3: l'agent est sorti par le bas
         else if (position.y > height)
         {
             return 3;
         }
+        // 4: l'agent est sorti par la gauche
         else if (position.x < 0)
         {
             return 4;
         }
+        // 0: l'agent n'est pas sorti des limites de l'espace du sketch
         else
         {
             return 0;
