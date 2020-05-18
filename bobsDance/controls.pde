@@ -4,7 +4,7 @@ public void mousePressed() {
     Bobs[i].welcomeExclude(mouseX, mouseY);
   }
   // PVector position = new PVector(mouseX, mouseY);
-  field.occupyFree(mouseX, mouseY);
+  // field.occupyFree(mouseX, mouseY);
   println(field.isOccupied(new PVector(mouseX, mouseY)));
   println(field.isOccupied(mouseX, mouseY));
 }
