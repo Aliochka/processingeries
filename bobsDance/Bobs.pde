@@ -1,10 +1,10 @@
 class Bobs {
   ArrayList<Bob> bobs = new ArrayList<Bob>();
-  int bobsLimit = 10;
+  int bobsLimit = 50;
   int bobsSize;
 
   Bobs (int x, int y, int bobsNumber) {
-    for(int i = 0 ; i <= bobsNumber; i++) {
+    for(int i = 0 ; i < bobsNumber; i++) {
       bobs.add(0, new Bob( x,  y));
     }
   }
@@ -81,7 +81,7 @@ class Bobs {
 
   void drawBobs() {
     bobsSize = bobsSize() - 1;
-    for (int i = bobsSize; i >= 0; i--) {
+    for (int i = bobsSize - 1; i >= 0; i--) {
       Bob bob = getBob(i);
       if (isDrawing) {
         // switchToNextBob(i);

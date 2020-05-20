@@ -12,10 +12,10 @@ Bobs[] Bobs = new Bobs[bobsNumber];
 Field field;
 
 void setup() {
-  size(1000, 1000, P2D);
+  size(1000, 1000, P3D);
   colorMode(HSB, 100);
   background(backgroundColor);
-  strokeWeight(5);
+  strokeWeight(4);
   field = new Field(4);
   // frameRate(20);
   for(int i = 0; i < bobsNumber; i++) {
@@ -33,7 +33,7 @@ void draw() {
     Bobs[i].drawBobs();
   }
   // press b to create bobs
-  if (isCreatingBob & frameCount % 5 == 0) {
+  if (isCreatingBob) {
     println("new bob");
     // bobs.welcomeExclude(mouseX, mouseY);
     for(int i = 0; i < bobsNumber; i++) {

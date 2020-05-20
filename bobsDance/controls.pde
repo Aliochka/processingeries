@@ -34,7 +34,7 @@ void keyPressed() {
     field = new Field(4);
     // frameRate(20);
     for(int i = 0; i < bobsNumber; i++) {
-      Bobs[i] = new Bobs(int(random(width / 4, 3 * width / 4)), int(random(width / 4, 3 * width / 4)), 1);
+      Bobs[i] = new Bobs(int(random(width / 4, 3 * width / 4)), int(random(width / 4, 3 * width / 4)), int(random(10,30)));
     }
     println("newCanvas ! ");
   }
@@ -46,7 +46,7 @@ void keyPressed() {
 
 void printHelp(){
   println("    ***    ");
-  println("for help press : h");
+  println("for this help press : h");
   println("for isCreatingBob press : b");
   println("for isCurved press : c");
   println("for isRecording press : r");

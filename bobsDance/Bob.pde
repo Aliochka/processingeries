@@ -2,7 +2,6 @@ class Bob {
   PShape s;
   Agent[] vertices;
   float hue, saturation, brightness;
-  int entropy = 2;
   int verticesNumber;
 
   Bob () {
@@ -16,12 +15,11 @@ class Bob {
     this();
     this.verticesNumber = verticesNumber;
     vertices = new Agent[verticesNumber];
-    int rayon = 200;
+    int rayon = 2;
     for(int i = 0; i < verticesNumber; i++) {
       // start circle
-      float t = i ;
-      float x = a + rayon * (1 - sqrt(t)) / (1 + sqrt(t));
-      float y = b + 2 * rayon * t / (1 + sqrt(t));
+      float x = a + rayon * cos(i);
+      float y = b + rayon * sin(i);
       vertices[i] = new Agent(new PVector(x, y));
 
       // random start position
