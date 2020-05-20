@@ -5,7 +5,7 @@ class Bobs {
 
   Bobs (int x, int y, int bobsNumber) {
     for(int i = 0 ; i <= bobsNumber; i++) {
-      bobs.add(0, new Bob( x,  y, bobVerticesCount));
+      bobs.add(0, new Bob( x,  y));
     }
   }
 
@@ -28,7 +28,7 @@ class Bobs {
   }
 
   void addBob(int x, int y) {
-    bobs.add(0, new Bob(mouseX, mouseY, bobVerticesCount));
+    bobs.add(0, new Bob(mouseX, mouseY));
   }
 
   Bob getBob(int position) {

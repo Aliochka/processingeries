@@ -5,14 +5,27 @@ class Bob {
   int entropy = 2;
   int verticesNumber;
 
-  Bob (int x, int y, int verticesNumber) {
+  Bob () {
     hue = random(100);
     saturation = (60 ) % 100;
     brightness = 100;
+    verticesNumber = 20;
+  }
+
+  Bob (int a, int b) {
+    this();
     this.verticesNumber = verticesNumber;
     vertices = new Agent[verticesNumber];
+    int rayon = 200;
     for(int i = 0; i < verticesNumber; i++) {
-      vertices[i] = new Agent(new PVector(x + random(-100,100), y + random(-100,100)));
+      // start circle
+      float t = i ;
+      float x = a + rayon * (1 - sqrt(t)) / (1 + sqrt(t));
+      float y = b + 2 * rayon * t / (1 + sqrt(t));
+      vertices[i] = new Agent(new PVector(x, y));
+
+      // random start position
+      // vertices[i] = new Agent(new PVector(x + random(-100,100), y + random(-100,100)));
     }
   }
 

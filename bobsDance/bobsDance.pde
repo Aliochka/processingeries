@@ -7,7 +7,6 @@ boolean isCurved = true;
 boolean showBobs = true;
 int backgroundColor = 0;
 int bobsNumber = 1;
-int bobVerticesCount = 4;
 // Bobs bobs;
 Bobs[] Bobs = new Bobs[bobsNumber];
 Field field;
