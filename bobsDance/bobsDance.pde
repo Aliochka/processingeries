@@ -15,7 +15,7 @@ void setup() {
   size(1000, 1000, P3D);
   colorMode(HSB, 100);
   background(backgroundColor);
-  strokeWeight(4);
+  strokeWeight(2);
   field = new Field(4);
   // frameRate(20);
   for(int i = 0; i < bobsNumber; i++) {
@@ -26,21 +26,17 @@ void setup() {
 }
 
 void draw() {
-  refreshCanvas(backgroundColor);
   field.drawField();
   // bobs.drawBobs();
   for(int i = 0; i < bobsNumber; i++) {
     Bobs[i].drawBobs();
   }
-  // press b to create bobs
+
   if (isCreatingBob) {
-    println("new bob");
-    // bobs.welcomeExclude(mouseX, mouseY);
     for(int i = 0; i < bobsNumber; i++) {
       Bobs[i].welcomeExclude(mouseX, mouseY);
     }
   }
-
 
   // press r
   record();

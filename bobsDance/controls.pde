@@ -34,7 +34,7 @@ void keyPressed() {
     field = new Field(4);
     // frameRate(20);
     for(int i = 0; i < bobsNumber; i++) {
-      Bobs[i] = new Bobs(int(random(width / 4, 3 * width / 4)), int(random(width / 4, 3 * width / 4)), int(random(10,30)));
+      Bobs[i] = new Bobs(int(random(width / 4, 3 * width / 4)), int(random(width / 4, 3 * width / 4)), 1);
     }
     println("newCanvas ! ");
   }

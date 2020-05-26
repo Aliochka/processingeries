@@ -5,7 +5,7 @@ class Bobs {
 
   Bobs (int x, int y, int bobsNumber) {
     for(int i = 0 ; i < bobsNumber; i++) {
-      bobs.add(0, new Bob( x,  y));
+      bobs.add(0, new Bob( x, y));
     }
   }
 
@@ -35,20 +35,16 @@ class Bobs {
     return bobs.get(position);
   }
 
-  int bobsSize() {
-    bobsSize = bobs.size();
-    return bobsSize;
-  }
-
   void removeBob(int position) {
     bobs.remove(position);
   }
 
   void switchToNextBob(int bobPosition) {
     // rename me !
+    bobsSize = bobs.size() - 1;
     Bob bob = getBob(bobPosition);
     Bob nextBob;
-    if (bobsSize - bobPosition >= 2) {
+    if (bobsSize - bobPosition > 0) {
       nextBob = getBob(bobPosition + 1);
     }
     else {
@@ -80,11 +76,11 @@ class Bobs {
     }
 
   void drawBobs() {
-    bobsSize = bobsSize() - 1;
+    bobsSize = bobs.size() - 1;
     for (int i = bobsSize - 1; i >= 0; i--) {
       Bob bob = getBob(i);
       if (isDrawing) {
-        // switchToNextBob(i);
+        switchToNextBob(i);
         // moveApproximativelyToNextBob(i);
         // moveSkinToRandomSkin(i);
       }

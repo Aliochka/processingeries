@@ -8,7 +8,7 @@ class Bob {
     hue = random(100);
     saturation = (60 ) % 100;
     brightness = 100;
-    verticesNumber = 20;
+    verticesNumber = int(random(3, 100));
   }
 
   Bob (int a, int b) {
@@ -77,13 +77,20 @@ class Bob {
     return vertices[verticeNumber];
   }
 
+  Agent getVerticeFromOtherBob(int verticeNumber) {
+    if (verticesNumber >= vertices.length) {
+        return vertices[int(random(vertices.length))];
+    }
+    return vertices[verticeNumber];
+  }
+
   Agent getRandomVertice() {
     return vertices[int(random(verticesNumber - 1))];
   }
 
   void switchToNextBob(Bob nextBob) {
-    for(int i = 0 ; i < verticesNumber; i++) {
-      Agent nextBobVertice = nextBob.getVertice(i);
+    for(int i = 0 ; i < verticesNumber - 1; i++) {
+      Agent nextBobVertice = nextBob.getVerticeFromOtherBob(i);
       Agent bobVertice = this.getVertice(i);
       bobVertice.position.x = nextBobVertice.position.x;
       bobVertice.position.y = nextBobVertice.position.y;
