@@ -8,11 +8,12 @@ class Bob {
     hue = random(100);
     saturation = (60 ) % 100;
     brightness = 100;
-    verticesNumber = int(random(3, 100));
+    verticesNumber = int(random(5, 20));
   }
 
-  Bob (int a, int b) {
+  Bob (int a, int b, float hue) {
     this();
+    this.hue = int(hue + random(-5, 5));
     this.verticesNumber = verticesNumber;
     vertices = new Agent[verticesNumber];
     int rayon = 2;
@@ -43,8 +44,8 @@ class Bob {
         s.vertex(vertice.position.x, vertice.position.y);
       }
     }
-    // s.endShape();
-    s.endShape(CLOSE);
+    s.endShape();
+    // s.endShape(CLOSE);
   }
 
   void moveApproximativelyToNextPosition(float x, float y) {

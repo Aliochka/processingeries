@@ -1,26 +1,32 @@
 // processing --sketch=./bobsDance --run
-// Particle part = positions.get(0);
+import com.hamoid.*;
+
 boolean isCreatingBob = false;
 boolean isRecording = false;
-boolean isDrawing = false;
+boolean isTakingPicture = false;
+boolean isDrawing = true;
 boolean isCurved = true;
 boolean showBobs = true;
-int backgroundColor = 0;
-int bobsNumber = 1;
+
+int bobsNumber = 10;
 // Bobs bobs;
 Bobs[] Bobs = new Bobs[bobsNumber];
 Field field;
+VideoExport videoExport;
+
 
 void setup() {
   size(1000, 1000, P3D);
   colorMode(HSB, 100);
-  background(backgroundColor);
+  background(100);
   strokeWeight(2);
   field = new Field(4);
-  // frameRate(20);
+  frameRate(10);
   for(int i = 0; i < bobsNumber; i++) {
-    Bobs[i] = new Bobs(int(random(width / 4, 3 * width / 4)), int(random(width / 4, 3 * width / 4)), 1);
+    Bobs[i] = new Bobs(int(random(width / 4, 3 * width / 4)), int(random(width / 4, 3 * width / 4)), 10);
   }
+  videoExport = new VideoExport(this);
+  videoExport.startMovie();
   println("init finito");
   printHelp();
 }
@@ -37,7 +43,11 @@ void draw() {
       Bobs[i].welcomeExclude(mouseX, mouseY);
     }
   }
-
-  // press r
-  record();
+  if (isRecording) {
+    videoExport.saveFrame();
+  }
+  // press p
+  if (isTakingPicture){
+    record();
+  }
 }

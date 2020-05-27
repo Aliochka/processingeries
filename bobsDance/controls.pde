@@ -22,13 +22,24 @@ void keyPressed() {
     isCurved = !isCurved;
     println("isCurved : " + isCurved);
   }
-  else if (key == 'r' || key == 'R') {
-    isRecording = !isRecording;
-    println("isRecording : " + isRecording);
+  else if (key == 'p' || key == 'P') {
+    isTakingPicture = !isTakingPicture;
+    println("isTakingPicture : " + isTakingPicture);
   }
   else if (key == 'e' || key == 'E') {
     showBobs = !showBobs;
     println("showBobs : " + showBobs);
+  }
+  else if (key == 'i' || key == 'I') {
+    isRecording = !isRecording;
+    println("isRecording : " + isRecording);
+    videoExport.endMovie();
+    exit();
+  }
+  else if (key == 'o' || key == 'O') {
+    println("finishVideo");
+    videoExport.endMovie();
+    exit();
   }
   else if (key == 'n' || key == 'N') {
     field = new Field(4);
@@ -49,7 +60,8 @@ void printHelp(){
   println("for this help press : h");
   println("for isCreatingBob press : b");
   println("for isCurved press : c");
-  println("for isRecording press : r");
+  println("for isRecording press : i");
+  println("for isTakingPicture press : p");
   println("for showBobs press : e");
   println("for isDrawing press : space");
   println("for newCanvas press : n ");

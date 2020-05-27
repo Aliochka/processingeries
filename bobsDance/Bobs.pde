@@ -1,11 +1,19 @@
 class Bobs {
-  ArrayList<Bob> bobs = new ArrayList<Bob>();
-  int bobsLimit = 50;
+  ArrayList<Bob> bobs;
+  int bobsLimit;
   int bobsSize;
+  float politicalColor;
+
+  Bobs(){
+    bobsLimit = 30;
+    bobs = new ArrayList<Bob>();
+    politicalColor = random(10, 90);
+  }
 
   Bobs (int x, int y, int bobsNumber) {
+    this();
     for(int i = 0 ; i < bobsNumber; i++) {
-      bobs.add(0, new Bob( x, y));
+      bobs.add(0, new Bob(x, y, politicalColor));
     }
   }
 
@@ -28,7 +36,7 @@ class Bobs {
   }
 
   void addBob(int x, int y) {
-    bobs.add(0, new Bob(mouseX, mouseY));
+    bobs.add(0, new Bob(mouseX, mouseY, politicalColor));
   }
 
   Bob getBob(int position) {
@@ -77,11 +85,11 @@ class Bobs {
 
   void drawBobs() {
     bobsSize = bobs.size() - 1;
-    for (int i = bobsSize - 1; i >= 0; i--) {
+    for (int i = bobsSize; i >= 0; i--) {
       Bob bob = getBob(i);
       if (isDrawing) {
-        switchToNextBob(i);
-        // moveApproximativelyToNextBob(i);
+        // switchToNextBob(i);
+        moveApproximativelyToNextBob(i);
         // moveSkinToRandomSkin(i);
       }
       bob.drawShape(isCurved);

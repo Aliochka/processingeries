@@ -143,10 +143,10 @@ class Field {
       for(int y = 0; y < pixelHeightNumber; y++) {
         boolean isOccupied = this._isOccupied(x, y);
         if (isOccupied) {
-          fill(0,10);
+          fill(0);
         }
         else {
-          fill(100,10);
+          fill(100);
         }
         noStroke();
         rect(x  * minimizer, y * minimizer, minimizer * pixelRatio, minimizer * pixelRatio);
