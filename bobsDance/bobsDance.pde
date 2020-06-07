@@ -16,7 +16,7 @@ VideoExport videoExport;
 
 
 void setup() {
-  size(1000, 1000, P3D);
+  size(1200, 750, P3D);
   colorMode(HSB, 100);
   background(100);
   strokeWeight(2);
