@@ -1,7 +1,7 @@
 public void mousePressed() {
   // bobs.welcomeExclude(mouseX, mouseY);
-  for(int i = 0; i < bobsNumber; i++) {
-    Bobs[i].welcomeExclude(mouseX, mouseY);
+  for(int i = 0; i < numberOfBobsCommunity; i++) {
+    Bobs[i].welcomeExclude(int(random(width)), int(random(height)));
   }
   // PVector position = new PVector(mouseX, mouseY);
   // field.occupyFree(mouseX, mouseY);
@@ -44,7 +44,7 @@ void keyPressed() {
   else if (key == 'n' || key == 'N') {
     field = new Field(4);
     // frameRate(20);
-    for(int i = 0; i < bobsNumber; i++) {
+    for(int i = 0; i < numberOfBobsCommunity; i++) {
       Bobs[i] = new Bobs(int(random(width / 4, 3 * width / 4)), int(random(width / 4, 3 * width / 4)), 1);
     }
     println("newCanvas ! ");

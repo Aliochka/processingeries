@@ -15,7 +15,7 @@ class Field {
     this.pixelNumber = int(pixelWidthNumber * pixelHeightNumber);
     this.fieldPixels = new FieldPixel[pixelWidthNumber][pixelHeightNumber];
     for (int x = 0 ; x < this.pixelWidthNumber ; x++) {
-      for (int y = 0 ; y <this.pixelHeightNumber ; y++) {
+      for (int y = 0 ; y < this.pixelHeightNumber ; y++) {
         fieldPixels[x][y] = new FieldPixel();
       }
     }
@@ -49,6 +49,10 @@ class Field {
   public void occupy(int x, int y) {
     int[] mappedPosition = mapCoordToPixel(x, y);
     this.fieldPixels[mappedPosition[0]][mappedPosition[1]].occupy();
+  }
+
+  void recoverNatureRights(){
+    this.fieldPixels[int(random(pixelWidthNumber - 1))][int(random(pixelHeightNumber - 1))].free();
   }
 
   int[] mapCoordToPixel(int x, int y){
@@ -143,10 +147,10 @@ class Field {
       for(int y = 0; y < pixelHeightNumber; y++) {
         boolean isOccupied = this._isOccupied(x, y);
         if (isOccupied) {
-          fill(0);
+          fill(0,10);
         }
         else {
-          fill(100);
+          fill(100,10);
         }
         noStroke();
         rect(x  * minimizer, y * minimizer, minimizer * pixelRatio, minimizer * pixelRatio);

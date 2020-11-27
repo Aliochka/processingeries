@@ -8,7 +8,7 @@ class Bob {
     hue = random(100);
     saturation = (60 ) % 100;
     brightness = 100;
-    verticesNumber = int(random(5, 20));
+    verticesNumber = int(random(5, 10));
   }
 
   Bob (int a, int b, float hue) {

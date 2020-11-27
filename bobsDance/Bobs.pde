@@ -5,7 +5,7 @@ class Bobs {
   float politicalColor;
 
   Bobs(){
-    bobsLimit = 30;
+    bobsLimit = 20;
     bobs = new ArrayList<Bob>();
     politicalColor = random(10, 90);
   }
@@ -36,7 +36,7 @@ class Bobs {
   }
 
   void addBob(int x, int y) {
-    bobs.add(0, new Bob(mouseX, mouseY, politicalColor));
+    bobs.add(0, new Bob(x, y, politicalColor));
   }
 
   Bob getBob(int position) {
@@ -88,8 +88,8 @@ class Bobs {
     for (int i = bobsSize; i >= 0; i--) {
       Bob bob = getBob(i);
       if (isDrawing) {
-        // switchToNextBob(i);
-        moveApproximativelyToNextBob(i);
+        switchToNextBob(i);
+        // moveApproximativelyToNextBob(i);
         // moveSkinToRandomSkin(i);
       }
       bob.drawShape(isCurved);
