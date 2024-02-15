@@ -30,17 +30,17 @@ void keyPressed() {
     showBobs = !showBobs;
     println("showBobs : " + showBobs);
   }
-  else if (key == 'i' || key == 'I') {
-    isRecording = !isRecording;
-    println("isRecording : " + isRecording);
-    videoExport.endMovie();
-    exit();
-  }
-  else if (key == 'o' || key == 'O') {
-    println("finishVideo");
-    videoExport.endMovie();
-    exit();
-  }
+  // else if (key == 'i' || key == 'I') {
+  //   isRecording = !isRecording;
+  //   println("isRecording : " + isRecording);
+  //   videoExport.endMovie();
+  //   exit();
+  // }
+  // else if (key == 'o' || key == 'O') {
+  //   println("finishVideo");
+  //   videoExport.endMovie();
+  //   exit();
+  // }
   else if (key == 'n' || key == 'N') {
     field = new Field(4);
     // frameRate(20);

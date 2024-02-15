@@ -1,5 +1,5 @@
 // processing --sketch=./bobsDance --run
-import com.hamoid.*;
+// import com.hamoid.*;
 
 boolean isCreatingBob = false;
 boolean isRecording = false;
@@ -12,7 +12,7 @@ int numberOfBobsCommunity = 10;
 // Bobs bobs;
 Bobs[] Bobs = new Bobs[numberOfBobsCommunity];
 Field field;
-VideoExport videoExport;
+// VideoExport videoExport;
 
 
 void setup() {
@@ -25,8 +25,8 @@ void setup() {
   for(int i = 0; i < numberOfBobsCommunity; i++) {
     Bobs[i] = new Bobs(int(random(width / 4, 3 * width / 4)), int(random(width / 4, 3 * width / 4)), 10);
   }
-  videoExport = new VideoExport(this);
-  videoExport.startMovie();
+  // videoExport = new VideoExport(this);
+  // videoExport.startMovie();
   println("init finito");
   printHelp();
 }
@@ -71,4 +71,11 @@ void draw() {
   if (isTakingPicture){
     record();
   }
+  // if (isRecording) {
+  //   // videoExport.saveFrame();
+  // }
+  // // press p
+  // if (isTakingPicture){
+  //   record();
+  // }
 }
